@@ -1,0 +1,69 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Template Generator</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <form class="ui form">
+    <div class="field">
+      <label class="ui label">Title:</label> <input class="ui input" id="title" type="text" />
+    </div>
+    <div class="field"><label class="ui label">Bullet Point 1</label> <input class="ui input" id="bp1" type="text" />
+    </div>
+
+    <div class="field">
+      <label class="ui label">Bullet Point 2</label> <input class="ui input" id="bp2" type="text" />
+    </div>
+    <div class="field"><label class="ui label">Bullet Point 3</label> <input class="ui input" id="bp3" type="text" />
+    </div>
+    <div class="field"><label class="ui label">Bullet Point 4</label> <input class="ui input" id="bp4" type="text" />
+    </div>
+    <div class="field"><label class="ui label">Bullet Point 5</label> <input class="ui input" id="bp5" type="text" />
+    </div>
+    <button id="generate" type="button">Generate</button><br/><br/>
+    <label class="ui label">Results(also copied to the clipboard)</label><textarea id="result"></textarea>
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+    integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
+    document.getElementById("generate").addEventListener('click',function(){
+      var results ="<br/><p><b>"+document.getElementById("title").value+"</b></p><ul>";
+      if(document.getElementById("bp1").value!=""){
+          results+="<li>"+document.getElementById("bp1").value+"</li>";
+      }
+      if(document.getElementById("bp2").value!=""){
+          results+="<li>"+document.getElementById("bp2").value+"</li>";
+      }
+      if(document.getElementById("bp3").value!=""){
+          results+="<li>"+document.getElementById("bp3").value+"</li>";
+      }
+      if(document.getElementById("bp4").value!=""){
+          results+="<li>"+document.getElementById("bp4").value+"</li>";
+      }
+      if(document.getElementById("bp5").value!=""){
+          results+="<li>"+document.getElementById("bp5").value+"</li>";
+      }
+      results+="</ul>";
+      document.getElementById("result").value=results;
+      document.getElementById("result").select();
+      document.execCommand("copy");
+    })
+  </script>
+</body>
+
+</html>
