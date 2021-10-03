@@ -17,23 +17,32 @@
 <body>
   <form class="ui form">
     <div class="field">
-      <label class="ui label">Title:</label> <input class="ui input" id="title" type="text" />
+      <label class="ui label" for="title">Title<div class="detail">Length:<span id="title-length">0</span></div></label> <input class="ui input" id="title" type="text" />
     </div>
-    <div class="field"><label class="ui label">Bullet Point 1</label> <input class="ui input" id="bp1" type="text" />
+    <div class="field">
+      <label class="ui label" for="bp1">Bullet Point 1<div class="detail">Length:<span id="bp1-length">0</span></div></label> <input class="ui input" id="bp1" type="text" />
     </div>
 
     <div class="field">
-      <label class="ui label">Bullet Point 2</label> <input class="ui input" id="bp2" type="text" />
+      <label class="ui label" for="bp2">Bullet Point 2<div class="detail">Length:<span id="bp2-length">0</span></div></label> <input class="ui input" id="bp2" type="text" />
     </div>
-    <div class="field"><label class="ui label">Bullet Point 3</label> <input class="ui input" id="bp3" type="text" />
+    <div class="field"><label class="ui label" for="bp3">Bullet Point 3<div class="detail">Length:<span id="bp3-length">0</span></div></label> <input class="ui input" id="bp3" type="text" />
     </div>
-    <div class="field"><label class="ui label">Bullet Point 4</label> <input class="ui input" id="bp4" type="text" />
+    <div class="field"><label class="ui label" for="bp4">Bullet Point 4<div class="detail">Length:<span id="bp4-length">0</span></div></label> <input class="ui input" id="bp4" type="text" />
     </div>
-    <div class="field"><label class="ui label">Bullet Point 5</label> <input class="ui input" id="bp5" type="text" />
+    <div class="field"><label class="ui label" for="bp5">Bullet Point 5<div class="detail">Length:<span id="bp5-length">0</span></div></label> <input class="ui input" id="bp5" type="text" />
     </div>
-    <button id="generate" type="button">Generate</button><br/><br/>
-    <label class="ui label">Results(also copied to the clipboard)</label><textarea id="result"></textarea>
+    <button class="ui primary icon button" id="generate" type="button"><i class="play icon"></i>
+      Generate</button>&nbsp;&nbsp;<button class="ui grey icon button" id="breakdown" type="button"><i
+        class="recycle icon"></i>Break
+      Down</button>&nbsp;&nbsp;<button class="ui red icon button" id="clear" type="button"><i
+        class="eraser icon"></i>Clear</button><br /><br />
+    <label class="ui large label" for="result">Results(also copied to the clipboard on "Generate")<div class="detail">Length:<span id="result-length">0</span></div></label>
+    <textarea id="result" rows="3"></textarea>
   </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
     integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -41,27 +50,91 @@
     integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script>
-    document.getElementById("generate").addEventListener('click',function(){
-      var results ="<br/><p><b>"+document.getElementById("title").value+"</b></p><ul>";
-      if(document.getElementById("bp1").value!=""){
-          results+="<li>"+document.getElementById("bp1").value+"</li>";
+    document.getElementById("generate").addEventListener('click', function () {
+      var results = "<br/><p><b>" + document.getElementById("title").value + "</b></p><ul>";
+      if (document.getElementById("bp1").value != "") {
+        results += "<li>" + document.getElementById("bp1").value + "</li>";
       }
-      if(document.getElementById("bp2").value!=""){
-          results+="<li>"+document.getElementById("bp2").value+"</li>";
+      if (document.getElementById("bp2").value != "") {
+        results += "<li>" + document.getElementById("bp2").value + "</li>";
       }
-      if(document.getElementById("bp3").value!=""){
-          results+="<li>"+document.getElementById("bp3").value+"</li>";
+      if (document.getElementById("bp3").value != "") {
+        results += "<li>" + document.getElementById("bp3").value + "</li>";
       }
-      if(document.getElementById("bp4").value!=""){
-          results+="<li>"+document.getElementById("bp4").value+"</li>";
+      if (document.getElementById("bp4").value != "") {
+        results += "<li>" + document.getElementById("bp4").value + "</li>";
       }
-      if(document.getElementById("bp5").value!=""){
-          results+="<li>"+document.getElementById("bp5").value+"</li>";
+      if (document.getElementById("bp5").value != "") {
+        results += "<li>" + document.getElementById("bp5").value + "</li>";
       }
-      results+="</ul>";
-      document.getElementById("result").value=results;
+      results += "</ul>";
+      document.getElementById("result").value = results;
+      document.getElementById("result-length").innerHTML= results.length;
       document.getElementById("result").select();
       document.execCommand("copy");
+    })
+    document.getElementById("clear").addEventListener('click', function () {
+      document.getElementById("title").value = "";
+      document.getElementById("bp1").value = "";
+      document.getElementById("bp2").value = "";
+      document.getElementById("bp3").value = "";
+      document.getElementById("bp4").value = "";
+      document.getElementById("bp5").value = "";
+      document.getElementById("result").value = "";
+      document.getElementById("result-length").innerHTML= document.getElementById("result").value.length;
+      document.getElementById("title-length").innerHTML= document.getElementById("title").value.length;
+      document.getElementById("bp1-length").innerHTML= document.getElementById("bp1").value.length;
+      document.getElementById("bp2-length").innerHTML= document.getElementById("bp2").value.length;
+      document.getElementById("bp3-length").innerHTML= document.getElementById("bp3").value.length;
+      document.getElementById("bp4-length").innerHTML= document.getElementById("bp4").value.length;
+      document.getElementById("bp5-length").innerHTML= document.getElementById("bp5").value.length;
+    })
+    document.getElementById("breakdown").addEventListener('click', function () {
+      const results = document.getElementById("result").value;
+      const el = document.createElement('html');
+      el.innerHTML = results;
+      let title = el.getElementsByTagName("b");
+      document.getElementById("title").value = title[0].innerHTML;
+      let bullet_points = el.getElementsByTagName("li");
+      for (let i = 0; i <= bullet_points.length - 1; i++) {
+        let element = "bp".concat(i + 1);
+        document.getElementById(element).value = bullet_points[i].innerHTML;
+      }
+      document.getElementById("result-length").innerHTML= document.getElementById("result").value.length;
+      document.getElementById("title-length").innerHTML= document.getElementById("title").value.length;
+      document.getElementById("bp1-length").innerHTML= document.getElementById("bp1").value.length;
+      document.getElementById("bp2-length").innerHTML= document.getElementById("bp2").value.length;
+      document.getElementById("bp3-length").innerHTML= document.getElementById("bp3").value.length;
+      document.getElementById("bp4-length").innerHTML= document.getElementById("bp4").value.length;
+      document.getElementById("bp5-length").innerHTML= document.getElementById("bp5").value.length;
+    })
+    document.getElementById("result").addEventListener('input', function () {
+      const results = document.getElementById("result").value;
+      document.getElementById("result-length").innerHTML= results.length;
+    })
+    document.getElementById("title").addEventListener('input', function () {
+      const results = document.getElementById("title").value;
+      document.getElementById("title-length").innerHTML= results.length;
+    })
+    document.getElementById("bp1").addEventListener('input', function () {
+      const results = document.getElementById("bp1").value;
+      document.getElementById("bp1-length").innerHTML= results.length;
+    })
+    document.getElementById("bp2").addEventListener('input', function () {
+      const results = document.getElementById("bp2").value;
+      document.getElementById("bp2-length").innerHTML= results.length;
+    })
+    document.getElementById("bp3").addEventListener('input', function () {
+      const results = document.getElementById("bp3").value;
+      document.getElementById("bp3-length").innerHTML= results.length;
+    })
+    document.getElementById("bp4").addEventListener('input', function () {
+      const results = document.getElementById("bp4").value;
+      document.getElementById("bp4-length").innerHTML= results.length;
+    })
+    document.getElementById("bp5").addEventListener('input', function () {
+      const results = document.getElementById("bp5").value;
+      document.getElementById("bp5-length").innerHTML= results.length;
     })
   </script>
 </body>
